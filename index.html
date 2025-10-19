@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Каталог + AI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    
+    /* Прелоадер */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0190CC 0%, #0175a8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .preloader-logo {
+      width: 180px;
+      height: auto;
+      animation: logoFadeIn 1s ease, logoPulse 2s ease infinite;
+      filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.3));
+    }
+    
+    .preloader-spinner {
+      margin-top: 30px;
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    .preloader-text {
+      margin-top: 20px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      animation: textFadeIn 1.5s ease;
+    }
+    
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 32px;
+      text-align: center;
+      letter-spacing: -0.5px;
+      animation: fadeInDown 0.6s ease;
+    }
+    
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+    }
+    
+    h2::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: #0190CC;
+      margin-right: 12px;
+      border-radius: 2px;
+    }
+    
+    .card {
+      background: #fff;
+      padding: 28px;
+      margin-bottom: 24px;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.5s ease;
+    }
+    
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+    
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      background: #fff;
+      color: #1a1a1a;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #0190CC;
+      box-shadow: 0 0 0 3px rgba(1, 144, 204, 0.1);
+    }
+    
+    input[type="text"]::placeholder {
+      color: #9ca3af;
+    }
+    
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 500;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      background: #fff;
+      color: #1a1a1a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    
+    select:hover {
+      border-color: #0190CC;
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #0190CC;
+      box-shadow: 0 0 0 3px rgba(1, 144, 204, 0.1);
+    }
+    
+    textarea {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      margin-top: 12px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 100px;
+      transition: all 0.2s ease;
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: #0190CC;
+      box-shadow: 0 0 0 3px rgba(1, 144, 204, 0.1);
+    }
+    
+    textarea::placeholder {
+      color: #9ca3af;
+    }
+    
+    button {
+      padding: 14px 24px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #F02137;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(240, 33, 55, 0.3);
+    }
+    
+    button:hover {
+      background: #d01828;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(240, 33, 55, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+    
+    .answer {
+      margin-top: 16px;
+      background: linear-gradient(135deg, #e0f7ff 0%, #f0f9ff 100%);
+      padding: 16px;
+      border-radius: 10px;
+      border: 2px solid #0190CC;
+      animation: slideIn 0.4s ease;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      color: #1a1a1a;
+    }
+    
+    .error {
+      margin-top: 16px;
+      background: linear-gradient(135deg, #ffe5e5 0%, #fff0f0 100%);
+      padding: 16px;
+      border-radius: 10px;
+      border: 2px solid #F02137;
+      color: #c81e1e;
+      font-weight: 500;
+      animation: shake 0.5s ease;
+    }
+    
+    /* Стили для информации о продукте */
+    .product-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 24px;
+      animation: fadeIn 0.5s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background: transparent;
+    }
+    
+    .price-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 20px;
+      background: #0190CC;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(1, 144, 204, 0.3);
+      margin-bottom: 24px;
+    }
+    
+    .price-btn:hover {
+      background: #0175a8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(1, 144, 204, 0.4);
+    }
+    
+    .price-btn::before {
+      content: '💰';
+      margin-right: 8px;
+      font-size: 18px;
+    }
+    
+    #info .info-item {
+      margin-bottom: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    #info .info-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    #info .info-label {
+      color: #0190CC;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+    
+    #info .info-label::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      background: #0190CC;
+      margin-right: 8px;
+      border-radius: 2px;
+    }
+    
+    #info .info-value {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.7;
+      padding-left: 11px;
+    }
+    
+    /* Стили для истории */
+    #history p {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f3f4f6;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    #history p:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    #history b {
+      color: #0190CC;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    
+    /* Анимации */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes logoFadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes logoPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    @keyframes textFadeIn {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    
+    /* Контейнер */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    /* Сетка для информации и AI */
+    .grid {
+      display: block;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 12px;
+      }
+      
+      h1 {
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Прелоадер -->
+  <div id="preloader">
+    <img src="https://vegapharm.tj/wp-content/uploads/2024/11/logo.svg" alt="VegaPharm Logo" class="preloader-logo">
+    <div class="preloader-spinner"></div>
+    <div class="preloader-text">Загрузка...</div>
+  </div>
+
+  <div class="container">
+    <h1>Информация о продукте</h1>
+    
+    <div class="card">
+      <label>Выберите продукт:</label>
+      <input type="text" id="searchProduct" placeholder="Поиск продукта..." style="margin-bottom: 12px;">
+      <select id="product"></select>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Информация о продукте</h2>
+        <div id="info">Нет данных</div>
+      </div>
+
+      <div class="card">
+        <h2>Спросить у ИИ</h2>
+        <textarea id="question" placeholder="Задайте вопрос..."></textarea>
+        <button id="askBtn">Спросить</button>
+        <div id="aiAnswer" class="answer" style="display:none;"></div>
+        <div id="errorBox" class="error" style="display:none;"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>История</h2>
+      <div id="history">Пусто</div>
+    </div>
+  </div>
+
+<script>
+  const APP_URL = "https://script.google.com/macros/s/AKfycbxoHuYFTBkbD2Trbg62E_bwNnJpgZzUbqBdhPVclwG1M_xC_LYPNg-rsaj56VZNm3A-/exec";
+
+  async function apiGet(path){
+    try{
+      const res = await fetch(APP_URL+path);
+      if(!res.ok) throw new Error("HTTP "+res.status);
+      return await res.json();
+    }catch(e){ return {ok:false,error:e.message}; }
+  }
+
+  // ВНИМАНИЕ: отправляем как x-www-form-urlencoded, чтобы не было CORS preflight
+  async function apiPostForm(data){
+    try{
+      const form = new URLSearchParams();
+      Object.entries(data).forEach(([k,v])=> form.append(k, v));
+      const res = await fetch(APP_URL, {
+        method: "POST",
+        body: form  // без headers: браузер сам поставит правильный Content-Type
+      });
+      if(!res.ok) throw new Error("HTTP "+res.status);
+      return await res.json();
+    }catch(e){ return {ok:false,error:e.message}; }
+  }
+
+  const sel=document.getElementById('product');
+  const searchInput=document.getElementById('searchProduct');
+  const infoBox=document.getElementById('info');
+  const aiAns=document.getElementById('aiAnswer');
+  const errBox=document.getElementById('errorBox');
+  const askBtn=document.getElementById('askBtn');
+  const qEl=document.getElementById('question');
+  const histBox=document.getElementById('history');
+  
+  let allProducts = []; // Хранит все продукты
+
+  function showError(msg){ errBox.style.display="block"; errBox.textContent=msg; }
+  function clearError(){ errBox.style.display="none"; errBox.textContent=""; }
+
+  async function loadProducts(){
+    const js = await apiGet("?action=products");
+    if(!js.ok){ showError(js.error); return; }
+    allProducts = js.data || [];
+    updateProductList(allProducts);
+    if(allProducts.length){
+      sel.value = allProducts[0];
+      onSelectChange();
+    }
+  }
+  
+  function updateProductList(products){
+    sel.innerHTML = "";
+    products.forEach(p=>{
+      const opt=document.createElement('option');
+      opt.value=p; opt.textContent=p; sel.appendChild(opt);
+    });
+  }
+  
+  // Поиск продуктов
+  searchInput.addEventListener('input', function(){
+    const searchTerm = this.value.toLowerCase().trim();
+    if(searchTerm === ''){
+      updateProductList(allProducts);
+    } else {
+      const filtered = allProducts.filter(p => 
+        p.toLowerCase().includes(searchTerm)
+      );
+      updateProductList(filtered);
+    }
+    if(sel.options.length > 0){
+      sel.value = sel.options[0].value;
+      onSelectChange();
+    }
+  });
+
+  async function onSelectChange(){
+    clearError();
+    const name = sel.value;
+    const [info, hist] = await Promise.all([
+      apiGet(`?action=product&name=${encodeURIComponent(name)}`),
+      apiGet(`?action=history&name=${encodeURIComponent(name)}`)
+    ]);
+
+    if(info.ok){
+      infoBox.innerHTML="";
+      const obj=info.data||{};
+      if(Object.keys(obj).length===0) infoBox.textContent="Нет данных о продукте";
+      else {
+        // Сначала показываем все фото (поля со значением https://)
+        Object.entries(obj).forEach(([k,v])=>{
+          const value = String(v || '').trim();
+          
+          // Если значение начинается с https:// - это фото
+          if(value.startsWith('https://')) {
+            const img = document.createElement('img');
+            img.src = value;
+            img.alt = k;
+            img.className = 'product-image';
+            img.onerror = function() { 
+              this.style.display = 'none'; 
+            };
+            infoBox.appendChild(img);
+          }
+        });
+        
+        // Потом показываем все остальные поля (не https://)
+        Object.entries(obj).forEach(([k,v])=>{
+          const value = String(v || '').trim();
+          
+          // Пропускаем поля с https:// (они уже показаны как фото)
+          if(!value.startsWith('https://')) {
+            const item = document.createElement('div');
+            item.className = 'info-item';
+            item.innerHTML = `
+              <div class="info-label">${k}</div>
+              <div class="info-value">${value}</div>
+            `;
+            infoBox.appendChild(item);
+          }
+        });
+      }
+    } else showError(info.error||"Ошибка загрузки информации");
+
+    if(hist.ok){
+      histBox.innerHTML="";
+      const items=hist.data||[];
+      if(items.length===0) histBox.textContent="История пуста";
+      else items.forEach(h=>{
+        histBox.innerHTML+=`<p><b>Вопрос:</b> ${h.question}<br><b>Ответ:</b> ${h.answer}</p>`;
+      });
+    } else showError(hist.error||"Ошибка загрузки истории");
+
+    aiAns.style.display="none";
+  }
+
+  askBtn.addEventListener('click', async ()=>{
+    clearError();
+    const name = sel.value;
+    const question = qEl.value.trim();
+    if(!name || !question){ showError("Выберите продукт и введите вопрос"); return; }
+    askBtn.disabled = true; askBtn.textContent = "Обработка...";
+    const js = await apiPostForm({ action:"ask", name, question });
+    askBtn.disabled = false; askBtn.textContent = "Спросить";
+    if(!js.ok){ showError(js.error || "Ошибка AI"); return; }
+    aiAns.style.display = "block";
+    aiAns.textContent = js.answer;
+    onSelectChange(); // обновить историю
+  });
+
+  sel.addEventListener('change', onSelectChange);
+  
+  // Функция для скрытия прелоадера
+  function hidePreloader() {
+    const preloader = document.getElementById('preloader');
+    if(preloader) {
+      preloader.classList.add('hidden');
+      // Удаляем прелоадер из DOM после завершения анимации
+      setTimeout(() => {
+        preloader.remove();
+      }, 500);
+    }
+  }
+  
+  // Загружаем продукты и только после загрузки скрываем прелоадер
+  async function initApp() {
+    await loadProducts();
+    // Скрываем прелоадер после загрузки данных
+    hidePreloader();
+  }
+  
+  // Запускаем инициализацию
+  initApp();
+</script>
+</body>
+</html>
