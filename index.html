@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Каталог + AI</title>
   <style>
     * {
@@ -433,6 +434,12 @@
     .container {
       max-width: 900px;
       margin: 0 auto;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .container.loaded {
+      opacity: 1;
     }
     
     /* Сетка для информации и AI */
@@ -440,19 +447,87 @@
       display: block;
     }
     
-    /* Адаптивность */
+    /* Адаптивность для мобильных */
     @media (max-width: 768px) {
       body {
-        padding: 20px 12px;
+        padding: 16px;
+        font-size: 16px;
       }
       
       h1 {
-        font-size: 28px;
-        margin-bottom: 24px;
+        font-size: 26px;
+        margin-bottom: 20px;
+      }
+      
+      h2 {
+        font-size: 20px;
+      }
+      
+      h2::before {
+        width: 3px;
+        height: 20px;
       }
       
       .card {
         padding: 20px;
+        margin-bottom: 16px;
+        border-radius: 12px;
+      }
+      
+      .container {
+        max-width: 100%;
+      }
+      
+      input[type="text"], select {
+        padding: 16px;
+        font-size: 16px;
+      }
+      
+      textarea {
+        padding: 16px;
+        font-size: 16px;
+        min-height: 120px;
+      }
+      
+      button {
+        padding: 16px;
+        font-size: 16px;
+      }
+      
+      label {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      
+      .product-image {
+        max-width: 100%;
+      }
+      
+      .info-label {
+        font-size: 13px;
+      }
+      
+      .info-value {
+        font-size: 16px;
+      }
+      
+      .preloader-logo {
+        width: 150px;
+      }
+    }
+    
+    /* Для очень маленьких экранов */
+    @media (max-width: 375px) {
+      body {
+        padding: 12px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .card {
+        padding: 16px;
       }
     }
   </style>
@@ -470,7 +545,7 @@
     
     <div class="card">
       <label>Выберите продукт:</label>
-      <input type="text" id="searchProduct" placeholder="Поиск продукта..." style="margin-bottom: 12px;">
+      <input type="text" id="searchProduct" placeholder="🔍 Поиск продукта..." style="margin-bottom: 12px;">
       <select id="product"></select>
     </div>
 
@@ -646,9 +721,11 @@
 
   sel.addEventListener('change', onSelectChange);
   
-  // Функция для скрытия прелоадера
+  // Функция для скрытия прелоадера и показа контента
   function hidePreloader() {
     const preloader = document.getElementById('preloader');
+    const container = document.querySelector('.container');
+    
     if(preloader) {
       preloader.classList.add('hidden');
       // Удаляем прелоадер из DOM после завершения анимации
@@ -656,12 +733,19 @@
         preloader.remove();
       }, 500);
     }
+    
+    // Показываем контейнер с плавной анимацией
+    if(container) {
+      setTimeout(() => {
+        container.classList.add('loaded');
+      }, 300);
+    }
   }
   
   // Загружаем продукты и только после загрузки скрываем прелоадер
   async function initApp() {
     await loadProducts();
-    // Скрываем прелоадер после загрузки данных
+    // Скрываем прелоадер и показываем контент после загрузки данных
     hidePreloader();
   }
   
