@@ -130,6 +130,7 @@
       color: #1a1a1a;
       font-family: inherit;
       transition: all 0.2s ease;
+      cursor: text;
     }
     
     input[type="text"]:focus {
@@ -164,6 +165,125 @@
       outline: none;
       border-color: #0190CC;
       box-shadow: 0 0 0 3px rgba(1, 144, 204, 0.1);
+    }
+    
+    /* Кастомный выпадающий список */
+    .custom-select-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    
+    .custom-select {
+      position: relative;
+      width: 100%;
+    }
+    
+    .select-selected {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 500;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      background: #fff;
+      color: #1a1a1a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .select-selected::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #0190CC;
+      margin-left: 10px;
+      transition: transform 0.3s ease;
+    }
+    
+    .select-selected.active::after {
+      transform: rotate(180deg);
+      border-top-color: #0190CC;
+    }
+    
+    .select-selected:hover {
+      border-color: #0190CC;
+    }
+    
+    .select-items {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 2px solid #0190CC;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      max-height: 350px;
+      overflow: hidden;
+      animation: dropdownSlide 0.3s ease;
+    }
+    
+    @keyframes dropdownSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .search-in-dropdown {
+      width: calc(100% - 24px) !important;
+      margin: 12px 12px 8px 12px !important;
+      padding: 10px 12px !important;
+      border: 2px solid #e5e7eb !important;
+      border-radius: 8px !important;
+      font-size: 15px !important;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+    }
+    
+    .search-in-dropdown:focus {
+      border-color: #0190CC !important;
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(1, 144, 204, 0.1) !important;
+    }
+    
+    #productList {
+      max-height: 250px;
+      overflow-y: auto;
+      padding: 0 12px 12px 12px;
+    }
+    
+    .product-item {
+      padding: 12px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    
+    .product-item:hover {
+      background: #e0f7ff;
+      color: #0190CC;
+      font-weight: 500;
+    }
+    
+    .product-item:active {
+      background: #0190CC;
+      color: #fff;
     }
     
     textarea {
@@ -229,7 +349,7 @@
       border: 2px solid #0190CC;
       animation: slideIn 0.4s ease;
       white-space: pre-wrap;
-      line-height: 1.7;
+      line-height: 1.5;
       color: #1a1a1a;
     }
     
@@ -285,7 +405,7 @@
     }
     
     #info .info-item {
-      margin-bottom: 24px;
+      margin-bottom: 12px;
       animation: fadeIn 0.3s ease;
     }
     
@@ -299,7 +419,7 @@
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
     }
@@ -316,16 +436,43 @@
     #info .info-value {
       font-size: 16px;
       color: #374151;
-      line-height: 1.7;
+      line-height: 1.5;
       padding-left: 11px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    
+    #info .info-value strong,
+    #info .info-value b {
+      color: #0190CC;
+      font-weight: 700;
+    }
+    
+    #info .info-value em,
+    #info .info-value i {
+      font-style: italic;
+      color: #555;
+    }
+    
+    #info .info-value ul,
+    #info .info-value ol {
+      margin: 4px 0;
+      padding-left: 20px;
+    }
+    
+    #info .info-value li {
+      margin-bottom: 2px;
     }
     
     /* Стили для истории */
     #history p {
-      margin-bottom: 16px;
-      padding-bottom: 16px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
       border-bottom: 1px solid #f3f4f6;
       animation: fadeIn 0.3s ease;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      line-height: 1.5;
     }
     
     #history p:last-child {
@@ -342,6 +489,49 @@
       letter-spacing: 0.5px;
       display: inline-block;
       margin-bottom: 4px;
+    }
+    
+    #history strong {
+      color: #0190CC;
+      font-weight: 700;
+    }
+    
+    #history em,
+    #history i {
+      font-style: italic;
+      color: #555;
+    }
+    
+    #history ul,
+    #history ol {
+      margin: 4px 0;
+      padding-left: 20px;
+    }
+    
+    #history li {
+      margin-bottom: 2px;
+    }
+    
+    .answer strong,
+    .answer b {
+      color: #0175a8;
+      font-weight: 700;
+    }
+    
+    .answer em,
+    .answer i {
+      font-style: italic;
+      color: #555;
+    }
+    
+    .answer ul,
+    .answer ol {
+      margin: 4px 0;
+      padding-left: 20px;
+    }
+    
+    .answer li {
+      margin-bottom: 2px;
     }
     
     /* Анимации */
@@ -545,8 +735,15 @@
     
     <div class="card">
       <label>Выберите продукт:</label>
-      <input type="text" id="searchProduct" placeholder="🔍 Поиск продукта..." style="margin-bottom: 12px;">
-      <select id="product"></select>
+      <div class="custom-select-wrapper">
+        <div class="custom-select" id="customSelect">
+          <div class="select-selected">Выберите продукт...</div>
+          <div class="select-items" id="selectItems" style="display: none;">
+            <input type="text" id="searchProduct" placeholder="🔍 Поиск продукта..." class="search-in-dropdown">
+            <div id="productList"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="grid">
@@ -595,8 +792,11 @@
     }catch(e){ return {ok:false,error:e.message}; }
   }
 
-  const sel=document.getElementById('product');
+  const customSelect=document.getElementById('customSelect');
+  const selectSelected=document.querySelector('.select-selected');
+  const selectItems=document.getElementById('selectItems');
   const searchInput=document.getElementById('searchProduct');
+  const productList=document.getElementById('productList');
   const infoBox=document.getElementById('info');
   const aiAns=document.getElementById('aiAnswer');
   const errBox=document.getElementById('errorBox');
@@ -605,6 +805,7 @@
   const histBox=document.getElementById('history');
   
   let allProducts = []; // Хранит все продукты
+  let currentProduct = ''; // Текущий выбранный продукт
 
   function showError(msg){ errBox.style.display="block"; errBox.textContent=msg; }
   function clearError(){ errBox.style.display="none"; errBox.textContent=""; }
@@ -615,21 +816,48 @@
     allProducts = js.data || [];
     updateProductList(allProducts);
     if(allProducts.length){
-      sel.value = allProducts[0];
-      onSelectChange();
+      currentProduct = allProducts[0];
+      selectSelected.textContent = allProducts[0];
+      onProductChange();
     }
   }
   
   function updateProductList(products){
-    sel.innerHTML = "";
+    productList.innerHTML = "";
     products.forEach(p=>{
-      const opt=document.createElement('option');
-      opt.value=p; opt.textContent=p; sel.appendChild(opt);
+      const div=document.createElement('div');
+      div.className='product-item';
+      div.textContent=p;
+      div.addEventListener('click', function(){
+        currentProduct = p;
+        selectSelected.textContent = p;
+        selectItems.style.display = 'none';
+        selectSelected.classList.remove('active');
+        searchInput.value = '';
+        updateProductList(allProducts);
+        onProductChange();
+      });
+      productList.appendChild(div);
     });
   }
   
-  // Поиск продуктов
-  searchInput.addEventListener('input', function(){
+  // Открытие/закрытие выпадающего списка
+  selectSelected.addEventListener('click', function(e){
+    e.stopPropagation();
+    const isOpen = selectItems.style.display === 'block';
+    if(isOpen){
+      selectItems.style.display = 'none';
+      selectSelected.classList.remove('active');
+    } else {
+      selectItems.style.display = 'block';
+      selectSelected.classList.add('active');
+      setTimeout(() => searchInput.focus(), 100);
+    }
+  });
+  
+  // Поиск внутри выпадающего списка
+  searchInput.addEventListener('input', function(e){
+    e.stopPropagation();
     const searchTerm = this.value.toLowerCase().trim();
     if(searchTerm === ''){
       updateProductList(allProducts);
@@ -639,15 +867,27 @@
       );
       updateProductList(filtered);
     }
-    if(sel.options.length > 0){
-      sel.value = sel.options[0].value;
-      onSelectChange();
+  });
+  
+  // Предотвращаем закрытие при клике на поиск
+  searchInput.addEventListener('click', function(e){
+    e.stopPropagation();
+  });
+  
+  // Закрытие при клике вне списка
+  document.addEventListener('click', function(e){
+    if(!customSelect.contains(e.target)){
+      selectItems.style.display = 'none';
+      selectSelected.classList.remove('active');
+      searchInput.value = '';
+      updateProductList(allProducts);
     }
   });
 
-  async function onSelectChange(){
+  async function onProductChange(){
     clearError();
-    const name = sel.value;
+    if(!currentProduct) return;
+    const name = currentProduct;
     const [info, hist] = await Promise.all([
       apiGet(`?action=product&name=${encodeURIComponent(name)}`),
       apiGet(`?action=history&name=${encodeURIComponent(name)}`)
@@ -683,10 +923,18 @@
           if(!value.startsWith('https://')) {
             const item = document.createElement('div');
             item.className = 'info-item';
-            item.innerHTML = `
-              <div class="info-label">${k}</div>
-              <div class="info-value">${value}</div>
-            `;
+            
+            const label = document.createElement('div');
+            label.className = 'info-label';
+            label.textContent = k;
+            
+            const valueDiv = document.createElement('div');
+            valueDiv.className = 'info-value';
+            // Используем innerHTML для поддержки HTML-форматирования
+            valueDiv.innerHTML = value.replace(/\n/g, '<br>');
+            
+            item.appendChild(label);
+            item.appendChild(valueDiv);
             infoBox.appendChild(item);
           }
         });
@@ -698,7 +946,11 @@
       const items=hist.data||[];
       if(items.length===0) histBox.textContent="История пуста";
       else items.forEach(h=>{
-        histBox.innerHTML+=`<p><b>Вопрос:</b> ${h.question}<br><b>Ответ:</b> ${h.answer}</p>`;
+        const p = document.createElement('p');
+        const questionText = String(h.question || '').replace(/\n/g, '<br>');
+        const answerText = String(h.answer || '').replace(/\n/g, '<br>');
+        p.innerHTML = `<b>Вопрос:</b> ${questionText}<br><b>Ответ:</b> ${answerText}`;
+        histBox.appendChild(p);
       });
     } else showError(hist.error||"Ошибка загрузки истории");
 
@@ -707,7 +959,7 @@
 
   askBtn.addEventListener('click', async ()=>{
     clearError();
-    const name = sel.value;
+    const name = currentProduct;
     const question = qEl.value.trim();
     if(!name || !question){ showError("Выберите продукт и введите вопрос"); return; }
     askBtn.disabled = true; askBtn.textContent = "Обработка...";
@@ -715,11 +967,10 @@
     askBtn.disabled = false; askBtn.textContent = "Спросить";
     if(!js.ok){ showError(js.error || "Ошибка AI"); return; }
     aiAns.style.display = "block";
-    aiAns.textContent = js.answer;
-    onSelectChange(); // обновить историю
+    // Используем innerHTML для поддержки HTML-форматирования
+    aiAns.innerHTML = String(js.answer || '').replace(/\n/g, '<br>');
+    onProductChange(); // обновить историю
   });
-
-  sel.addEventListener('change', onSelectChange);
   
   // Функция для скрытия прелоадера и показа контента
   function hidePreloader() {
