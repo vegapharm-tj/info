@@ -13,11 +13,13 @@
     
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      background: #ffffff;
       min-height: 100vh;
-      padding: 40px 20px;
+      padding: 0;
       color: #1a1a1a;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     
     /* Прелоадер */
@@ -70,47 +72,40 @@
     }
     
     h1 {
-      font-size: 36px;
+      font-size: 28px;
       font-weight: 700;
-      color: #1a1a1a;
-      margin-bottom: 32px;
-      text-align: center;
-      letter-spacing: -0.5px;
+      color: #0190CC;
+      margin: 0 0 24px 0;
+      text-align: left;
+      letter-spacing: -0.3px;
       animation: fadeInDown 0.6s ease;
+      padding: 20px 20px 0 20px;
     }
     
     h2 {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 16px;
+      color: #0190CC;
+      margin: 0 0 20px 0;
       display: flex;
       align-items: center;
     }
     
     h2::before {
-      content: '';
-      width: 4px;
-      height: 24px;
-      background: #0190CC;
-      margin-right: 12px;
-      border-radius: 2px;
+      display: none;
     }
     
     .card {
-      background: #fff;
-      padding: 28px;
-      margin-bottom: 24px;
-      border-radius: 16px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: transparent;
+      padding: 0 20px;
+      margin-bottom: 0;
       transition: all 0.3s ease;
       animation: fadeInUp 0.5s ease;
     }
     
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-      transform: translateY(-2px);
+    .card:last-child {
+      margin-bottom: 0;
+      padding-bottom: 40px;
     }
     
     label {
@@ -127,8 +122,8 @@
       width: 100%;
       padding: 14px 16px;
       font-size: 16px;
-      border: 2px solid #e5e7eb;
-      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
       background: #fff;
       color: #1a1a1a;
       font-family: inherit;
@@ -151,8 +146,8 @@
       padding: 14px 16px;
       font-size: 16px;
       font-weight: 500;
-      border: 2px solid #e5e7eb;
-      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
       background: #fff;
       color: #1a1a1a;
       cursor: pointer;
@@ -186,8 +181,8 @@
       padding: 14px 16px;
       font-size: 16px;
       font-weight: 500;
-      border: 2px solid #e5e7eb;
-      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
       background: #fff;
       color: #1a1a1a;
       cursor: pointer;
@@ -224,9 +219,9 @@
       left: 0;
       right: 0;
       background: #fff;
-      border: 2px solid #0190CC;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border: 1px solid #0190CC;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
       z-index: 1000;
       max-height: 350px;
       overflow: hidden;
@@ -248,8 +243,8 @@
       width: calc(100% - 24px) !important;
       margin: 12px 12px 8px 12px !important;
       padding: 10px 12px !important;
-      border: 2px solid #e5e7eb !important;
-      border-radius: 8px !important;
+      border: 1px solid #e5e7eb !important;
+      border-radius: 6px !important;
       font-size: 15px !important;
       position: sticky;
       top: 0;
@@ -291,10 +286,10 @@
     
     textarea {
       width: 100%;
-      padding: 14px;
+      padding: 14px 16px;
       font-size: 15px;
-      border: 2px solid #e5e7eb;
-      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
       margin-top: 12px;
       font-family: inherit;
       resize: vertical;
@@ -313,28 +308,28 @@
     }
     
     button {
-      padding: 14px 24px;
+      padding: 14px 28px;
       margin-top: 12px;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       background: #F02137;
       color: #fff;
       cursor: pointer;
       font-size: 16px;
       font-weight: 600;
       font-family: inherit;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       box-shadow: 0 2px 8px rgba(240, 33, 55, 0.3);
+      width: 100%;
     }
     
     button:hover {
       background: #d01828;
-      transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(240, 33, 55, 0.4);
     }
     
     button:active {
-      transform: translateY(0);
+      transform: scale(0.98);
     }
     
     button:disabled {
@@ -346,38 +341,39 @@
     
     .answer {
       margin-top: 16px;
-      background: linear-gradient(135deg, #e0f7ff 0%, #f0f9ff 100%);
+      background: #f8f9fa;
       padding: 16px;
-      border-radius: 10px;
-      border: 2px solid #0190CC;
+      border-radius: 8px;
+      border-left: 3px solid #0190CC;
       animation: slideIn 0.4s ease;
       white-space: pre-wrap;
-      line-height: 1.5;
-      color: #1a1a1a;
+      line-height: 1.7;
+      color: #2d3748;
+      font-size: 15px;
     }
     
     .error {
       margin-top: 16px;
-      background: linear-gradient(135deg, #ffe5e5 0%, #fff0f0 100%);
+      background: #fff5f5;
       padding: 16px;
-      border-radius: 10px;
-      border: 2px solid #F02137;
-      color: #c81e1e;
+      border-radius: 8px;
+      border-left: 3px solid #F02137;
+      color: #F02137;
       font-weight: 500;
+      font-size: 14px;
       animation: shake 0.5s ease;
     }
     
     /* Стили для информации о продукте */
     .product-image {
       width: 100%;
-      max-width: 300px;
+      max-width: 100%;
       height: auto;
-      margin-bottom: 24px;
+      margin: 0 0 32px 0;
       animation: fadeIn 0.5s ease;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
-      background: transparent;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
     
     .price-btn {
@@ -407,9 +403,68 @@
       font-size: 18px;
     }
     
+    /* Стили для разделов */
+    .info-section {
+      margin-bottom: 40px;
+      padding: 0;
+      animation: fadeInUp 0.4s ease;
+      background: transparent;
+    }
+    
+    .info-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* Все разделы в едином стиле бренда */
+    .section-basic,
+    .section-composition,
+    .section-usage,
+    .section-advantages,
+    .section-special,
+    .section-additional {
+      background: transparent;
+    }
+    
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0190CC;
+      margin: 0 0 16px 0;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      display: block;
+      position: relative;
+      padding-bottom: 8px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: #0190CC;
+      border-radius: 2px;
+    }
+    
+    .info-section:first-child .section-title {
+      margin-top: 0;
+    }
+    
     #info .info-item {
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       animation: fadeIn 0.3s ease;
+      padding: 16px;
+      background: #fafafa;
+      border-left: 3px solid #0190CC;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    
+    #info .info-item:hover {
+      background: #f5f5f5;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
     
     #info .info-item:last-child {
@@ -419,30 +474,32 @@
     #info .info-label {
       color: #0190CC;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      margin-bottom: 4px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
     }
     
     #info .info-label::before {
       content: '';
-      width: 3px;
-      height: 14px;
+      width: 4px;
+      height: 4px;
       background: #0190CC;
+      border-radius: 50%;
       margin-right: 8px;
-      border-radius: 2px;
+      display: block;
     }
     
     #info .info-value {
-      font-size: 16px;
-      color: #374151;
-      line-height: 1.5;
-      padding-left: 11px;
+      font-size: 15px;
+      color: #2d3748;
+      line-height: 1.75;
+      padding-left: 12px;
       white-space: pre-wrap;
       word-wrap: break-word;
+      font-weight: 400;
     }
     
     #info .info-value strong,
@@ -469,13 +526,15 @@
     
     /* Стили для истории */
     #history p {
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #f3f4f6;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
       animation: fadeIn 0.3s ease;
       white-space: pre-wrap;
       word-wrap: break-word;
-      line-height: 1.5;
+      line-height: 1.7;
+      font-size: 14px;
+      color: #2d3748;
     }
     
     #history p:last-child {
@@ -487,11 +546,11 @@
     #history b {
       color: #0190CC;
       font-weight: 600;
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       display: inline-block;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     
     #history strong {
@@ -517,7 +576,7 @@
     
     .answer strong,
     .answer b {
-      color: #0175a8;
+      color: #0190CC;
       font-weight: 700;
     }
     
@@ -625,10 +684,11 @@
     
     /* Контейнер */
     .container {
-      max-width: 900px;
-      margin: 0 auto;
+      max-width: 100%;
+      margin: 0;
       opacity: 0;
       transition: opacity 0.5s ease;
+      background: #ffffff;
     }
     
     .container.loaded {
@@ -643,28 +703,73 @@
     /* Адаптивность для мобильных */
     @media (max-width: 768px) {
       body {
-        padding: 16px;
-        font-size: 16px;
+        padding: 0;
+        font-size: 15px;
       }
       
       h1 {
-        font-size: 26px;
+        font-size: 24px;
         margin-bottom: 20px;
+        padding: 16px 16px 0 16px;
       }
       
       h2 {
-        font-size: 20px;
-      }
-      
-      h2::before {
-        width: 3px;
-        height: 20px;
+        font-size: 17px;
+        margin-bottom: 16px;
       }
       
       .card {
-        padding: 20px;
-        margin-bottom: 16px;
-        border-radius: 12px;
+        padding: 0 16px;
+        margin-bottom: 0;
+      }
+      
+      .card:last-child {
+        padding-bottom: 32px;
+      }
+      
+      .info-section {
+        margin-bottom: 32px;
+        padding: 0;
+      }
+      
+      .section-title {
+        font-size: 13px;
+        margin-bottom: 14px;
+        letter-spacing: 1px;
+      }
+      
+      .section-title::after {
+        width: 35px;
+        height: 2px;
+      }
+      
+      #info .info-item {
+        margin-bottom: 14px;
+        padding: 14px;
+        border-left-width: 2px;
+      }
+      
+      #info .info-label {
+        font-size: 11px;
+        margin-bottom: 8px;
+        letter-spacing: 0.6px;
+      }
+      
+      #info .info-label::before {
+        width: 3px;
+        height: 3px;
+        margin-right: 6px;
+      }
+      
+      #info .info-value {
+        font-size: 14px;
+        line-height: 1.7;
+        padding-left: 9px;
+      }
+      
+      .product-image {
+        margin-bottom: 24px;
+        border-radius: 0;
       }
       
       .container {
@@ -711,16 +816,45 @@
     
     /* Для очень маленьких экранов */
     @media (max-width: 375px) {
-      body {
-        padding: 12px;
-      }
-      
       h1 {
-        font-size: 24px;
+        font-size: 22px;
+        padding: 12px 12px 0 12px;
       }
       
       .card {
-        padding: 16px;
+        padding: 0 12px;
+      }
+      
+      .info-section {
+        margin-bottom: 28px;
+      }
+      
+      .section-title {
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+      
+      #info .info-item {
+        margin-bottom: 12px;
+        padding: 12px;
+        border-left-width: 2px;
+      }
+      
+      #info .info-label {
+        font-size: 10px;
+        margin-bottom: 6px;
+      }
+      
+      #info .info-label::before {
+        width: 3px;
+        height: 3px;
+        margin-right: 6px;
+      }
+      
+      #info .info-value {
+        font-size: 13px;
+        line-height: 1.65;
+        padding-left: 9px;
       }
     }
   </style>
@@ -728,7 +862,7 @@
 <body>
   <!-- Прелоадер -->
   <div id="preloader">
-    <img src="https://vegapharm.tj/wp-content/uploads//2024/11/logo-1.svg" alt="VegaPharm Logo" class="preloader-logo">
+    <img src="https://vegapharm.tj/wp-content/uploads/2024/11/logo-1.svg" alt="VegaPharm Logo" class="preloader-logo">
     <div class="preloader-spinner"></div>
     <div class="preloader-text">Я ищу информацию о Ваших продуктах,<br>подождите пару секунд...</div>
   </div>
@@ -901,46 +1035,135 @@
       const obj=info.data||{};
       if(Object.keys(obj).length===0) infoBox.textContent="Нет данных о продукте";
       else {
-        // Сначала показываем все фото (поля со значением https://)
-        Object.entries(obj).forEach(([k,v])=>{
-          const value = String(v || '').trim();
-          
-          // Если значение начинается с https:// - это фото
-          if(value.startsWith('https://')) {
-            const img = document.createElement('img');
-            img.src = value;
-            img.alt = k;
-            img.className = 'product-image';
-            img.onerror = function() { 
-              this.style.display = 'none'; 
-            };
-            infoBox.appendChild(img);
-          }
-        });
+        // Функция для нормализации ключей (приведение к нижнему регистру и удаление пробелов)
+        function normalizeKey(key) {
+          return key.toLowerCase().trim();
+        }
         
-        // Потом показываем все остальные поля (не https://)
-        Object.entries(obj).forEach(([k,v])=>{
-          const value = String(v || '').trim();
-          
-          // Пропускаем поля с https:// (они уже показаны как фото)
-          if(!value.startsWith('https://')) {
-            const item = document.createElement('div');
-            item.className = 'info-item';
-            
-            const label = document.createElement('div');
-            label.className = 'info-label';
-            label.textContent = k;
-            
-            const valueDiv = document.createElement('div');
-            valueDiv.className = 'info-value';
-            // Используем innerHTML для поддержки HTML-форматирования
-            valueDiv.innerHTML = value.replace(/\n/g, '<br>');
-            
-            item.appendChild(label);
-            item.appendChild(valueDiv);
-            infoBox.appendChild(item);
+        // Функция для получения значения по ключу (с учетом разных вариантов написания)
+        function getValue(keyVariants) {
+          for(let key in obj) {
+            const normalized = normalizeKey(key);
+            if(keyVariants.some(v => normalizeKey(v) === normalized)) {
+              return String(obj[key] || '').trim();
+            }
           }
-        });
+          return '';
+        }
+        
+        // Функция для отображения фото в начале
+        function displayPhotos() {
+          const photos = [];
+          Object.entries(obj).forEach(([k,v])=>{
+            const value = String(v || '').trim();
+            const keyLower = normalizeKey(k);
+            // Ищем все поля со ссылками (фото)
+            if((value.startsWith('https://') || value.startsWith('http://'))) {
+              photos.push({ key: k, url: value });
+            }
+          });
+          
+          if(photos.length > 0) {
+            photos.forEach(photo => {
+              const img = document.createElement('img');
+              img.src = photo.url;
+              img.alt = photo.key;
+              img.className = 'product-image';
+              img.onerror = function() { 
+                this.style.display = 'none'; 
+              };
+              infoBox.appendChild(img);
+            });
+          }
+        }
+        
+        // Функция для создания раздела
+        function createSection(className, title, fields) {
+          const section = document.createElement('div');
+          section.className = `info-section ${className}`;
+          
+          const titleEl = document.createElement('div');
+          titleEl.className = 'section-title';
+          titleEl.textContent = title;
+          section.appendChild(titleEl);
+          
+          let hasContent = false;
+          fields.forEach(field => {
+            const value = getValue(Array.isArray(field.key) ? field.key : [field.key]);
+            if(value) {
+              hasContent = true;
+              const item = document.createElement('div');
+              item.className = 'info-item';
+              
+              const label = document.createElement('div');
+              label.className = 'info-label';
+              label.textContent = field.label || field.key[0] || field.key;
+              
+              const valueDiv = document.createElement('div');
+              valueDiv.className = 'info-value';
+              valueDiv.innerHTML = value.replace(/\n/g, '<br>');
+              
+              item.appendChild(label);
+              item.appendChild(valueDiv);
+              section.appendChild(item);
+            }
+          });
+          
+          if(hasContent) {
+            return section;
+          }
+          return null;
+        }
+        
+        // Создаем разделы в правильном порядке
+        
+        // 1. Сначала показываем фото
+        displayPhotos();
+        
+        // 2. Раздел 1: Основная информация
+        const section1 = createSection('section-basic', 'Основная информация', [
+          { key: ['Торговое название', 'торговое название'], label: 'Торговое название' },
+          { key: ['Группа', 'группа'], label: 'Группа' },
+          { key: ['Международное непатентованное название', 'МНН', 'мнн'], label: 'Международное непатентованное название' }
+        ]);
+        if(section1) infoBox.appendChild(section1);
+        
+        // 3. Раздел 2: Состав и форма
+        const section2 = createSection('section-composition', 'Состав и форма выпуска', [
+          { key: ['Состав', 'состав'], label: 'Состав' },
+          { key: ['Лекарственная форма и форма выпуска', 'лекарственная форма', 'форма выпуска'], label: 'Лекарственная форма и форма выпуска' },
+          { key: ['Условия отпуска', 'условия отпуска'], label: 'Условия отпуска' }
+        ]);
+        if(section2) infoBox.appendChild(section2);
+        
+        // 4. Раздел 3: Применение
+        const section3 = createSection('section-usage', 'Применение', [
+          { key: ['Фармакотерапевтическая группа', 'фармакотерапевтическая группа'], label: 'Фармакотерапевтическая группа' },
+          { key: ['Показания к применению', 'показания', 'показания к применению'], label: 'Показания к применению' },
+          { key: ['Способ применения и дозы', 'способ применения', 'дозы'], label: 'Способ применения и дозы' },
+          { key: ['Беременность и лактация', 'беременность', 'лактация'], label: 'Беременность и лактация' }
+        ]);
+        if(section3) infoBox.appendChild(section3);
+        
+        // 5. Раздел 4: Преимущества
+        const section4 = createSection('section-advantages', 'Преимущества', [
+          { key: ['Преимущества', 'преимущества'], label: 'Преимущества' }
+        ]);
+        if(section4) infoBox.appendChild(section4);
+        
+        // 6. Раздел 5: Преимущества
+        const section5 = createSection('section-special', 'Преимущества', [
+          { key: ['СПВ', 'спв'], label: 'СПВ' },
+          { key: ['Позиционирование', 'позиционирование'], label: 'Позиционирование' }
+        ]);
+        if(section5) infoBox.appendChild(section5);
+        
+        // 7. Раздел 6: Дополнительно
+        const section6 = createSection('section-additional', 'Дополнительная информация', [
+          { key: ['Аналоги', 'аналоги'], label: 'Аналоги' },
+          { key: ['Статус продукта', 'статус', 'статус продукта'], label: 'Статус продукта' }
+        ]);
+        if(section6) infoBox.appendChild(section6);
       }
     } else showError(info.error||"Ошибка загрузки информации");
 
